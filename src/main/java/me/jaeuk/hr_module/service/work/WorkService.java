@@ -18,6 +18,8 @@ public class WorkService {
         switch(workShift.getType()){
             case TWO_GROUP_TWO_SHIFT:
                 return new TwoGroupTwoShiftWorkCalculator(workShift, dutydate);
+            case THREE_GROUP_TWO_SHIFT:
+                return new ThreeGroupTwoShiftWorkCalculator(workShift, dutydate);
             default:
                 throw new IllegalArgumentException("근무조가 없습니다." + workShift.getName());
         }

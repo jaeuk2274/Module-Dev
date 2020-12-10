@@ -11,7 +11,7 @@ public enum WorkType {
     , RESIDENT_DEFORMATION("상주(변형)", LocalDate.of(2020, 11, 2))
     , DRIVER("운전직", LocalDate.of(2020, 11, 2))
     , TWO_GROUP_TWO_SHIFT("2조2교대", LocalDate.of(2020, 11, 2)) // 주5,휴2,야5,휴2
-    , THREE_GROUP_TWO_SHIFT("3조2교대", LocalDate.of(2020, 11, 2))
+    , THREE_GROUP_TWO_SHIFT("3조2교대", LocalDate.of(2020, 11, 2)) // 주4,휴2,야4
     , FOUR_GROUP_TWO_SHIFT("4조2교대", LocalDate.of(2020, 11, 2))
     ;
 
