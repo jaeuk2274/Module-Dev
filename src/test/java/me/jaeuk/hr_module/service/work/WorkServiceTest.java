@@ -20,7 +20,7 @@ class WorkServiceTest {
     private WorkService workService;
 
     @Test
-    @DisplayName("근무조+해당날짜 근무시간 조회")
+    @DisplayName("근무조+해당날짜 = 근무시간 조회")
     public void getWorkTime_test(){
         // 2조2교대 - 주간5 / 휴일2 / 야간5 / 휴일2
         int month = 11;

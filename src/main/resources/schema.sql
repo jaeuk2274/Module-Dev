@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS Products;
+DROP TABLE IF EXISTS Employee;
 
-CREATE TABLE Products
+CREATE TABLE Employee
 (
-    prod_id     IDENTITY        PRIMARY KEY,
-    prod_name   VARCHAR(255)    NOT NULL,
-    prod_price  INT             NOT NULL
+    emp_id      IDENTITY        PRIMARY KEY,
+    emp_name    VARCHAR(30)     NOT NULL,
+    work_shift  VARCHAR(100)    NOT NULL
 );

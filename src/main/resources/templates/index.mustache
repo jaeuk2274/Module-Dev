@@ -1,18 +1,16 @@
 {{>layout/header}}
 
-<h1>프로젝트 기본 세팅</h1>
+<h1> 모듈 개발 테스트 </h1>
+<h4> 더 좋은 구조와 설계, 어제보다 오늘 더 나은 코드 </h4>
+<h5> (클린코드, 리팩토링, 이펙티브 자바 등..)</h5>
+<br>
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-6">
-            <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
-            {{#userName}} <!-- 유저네임 있으면 -->
-                Logged in as: <span id="user">{{userName}}</span>
-                <!-- 스프링 시큐리티에서 기본적으로 제공하는 로그아웃 url. Security Config에서 커스텀도 가능하다.-->
-                <a href="/logout" class="btn btn-info active" role="button">Logout</a>
-            {{/userName}}
-            {{^userName}} <!-- 유저네임 없으면 -->
-
-            {{/userName}}
+            {{#emp}}
+                <a href="/" class="btn btn-info active" role="button">Logout</a>
+                <a href="/overtime/save" role="button" class="btn btn-primary">연장근로 등록</a>
+            {{/emp}}
         </div>
     </div>
     <br>
@@ -20,21 +18,30 @@
     <table class="table table-horizontal table-bordered">
         <thead class="thead-strong">
         <tr>
-            <th>게시글번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>최종수정일</th>
+            <th>사원ID</th>
+            <th>성명</th>
+            <th>근무조</th>
         </tr>
         </thead>
         <tbody id="tbody">
-        {{#posts}}
+        {{#emp}} <!-- 유저네임 있으면 -->
             <tr>
-                <td>{{id}}</td>
-                <td><a href="/posts/update/{{id}}">{{title}}</a></td>
-                <td>{{author}}</td>
-                <td>{{modifiedDate}}</td>
+                <td> <span id="empId">{{emp.empId}}</span></td>
+                <td> <span id="empName">{{emp.empName}}</span></td>
+                <td> <span id="workShift">{{emp.workShift}}</span></td>
             </tr>
-        {{/posts}}
+        {{/emp}}
+
+        {{^emp}} <!-- 유저네임 없으면 -->
+            {{#empList}}
+                <tr>
+                    <td>{{empId}}</td>
+                    <td><a href="/login/{{empId}}">{{empName}}</a></td>
+                    <td>{{workShift.name}}</td>
+                </tr>
+            {{/empList}}
+        {{/emp}}
+
         </tbody>
     </table>
 </div>

@@ -29,7 +29,5 @@ public class TestRunner implements ApplicationRunner {
         log.info("Url: " + connection.getMetaData().getURL());
         log.info("UserName: " + connection.getMetaData().getUserName());
 
-        // JdbcTemplate
-        jdbcTemplate.execute("INSERT INTO Products (prod_name, prod_price) values ('버킷햇', 6900)");
     }
 }
