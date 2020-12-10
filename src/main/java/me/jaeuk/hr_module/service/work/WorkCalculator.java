@@ -1,9 +1,7 @@
 package me.jaeuk.hr_module.service.work;
 
-import me.jaeuk.hr_module.domain.work.Work;
-
-import java.time.LocalDate;
+import me.jaeuk.hr_module.domain.work.WorkTime;
 
 public interface WorkCalculator {
-    Work.Time getWorkShift();
+    WorkTime getWorkShift();
 }
