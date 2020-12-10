@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 @Slf4j
@@ -21,26 +22,25 @@ class WorkServiceTest {
     @DisplayName("근무조+해당날짜 근무시간 조회")
     public void getWorkTime_test(){
         // 2조2교대 - 주간5일 휴일2일 야간5일 휴일2
-        assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_W1, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,11,2)));
-        assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_W1, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,11,3)));
-        assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_W1, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,11,4)));
-        assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_W1, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,11,5)));
-        assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_W1, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,11,6)));
+        int month = 11;
+        int[] W1Array = {2,3,4,5,6};
+        for (int day : W1Array){
+            assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_W1, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,month,day)));
+        }
+        int[] W2Array = {9,10,11,12,13};
+        for (int day : W2Array){
+            assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_W2, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,month,day)));
+        }
+        int[] HArray = {7,8,14,15};
+        for (int day : HArray){
+            assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_H, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,month,day)));
+        }
 
-        assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_H, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,11,7)));
-        assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_H, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,11,8)));
+    }
 
-        assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_W2, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,11,9)));
-        assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_W2, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,11,10)));
-        assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_W2, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,11,11)));
-        assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_W2, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,11,12)));
-        assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_W2, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,11,13)));
-
-        assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_H, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,11,14)));
-        assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_H, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,11,15)));
-
-        assertEquals(Work.Time.TWO_GROUP_TWO_SHIFT_W1, workService.getWorkTime(Work.Shift.TWO_GROUP_TWO_SHIFT_A, LocalDate.of(2020,11,16)));
-
+    @Test
+    @DisplayName("근무조+해당날짜 근무시간 조회")
+    public void calHrs_test(LocalTime attendTime, LocalTime leaveTime, LocalTime restTime, Work.Time time){
 
 
     }
