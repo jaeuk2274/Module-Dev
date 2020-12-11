@@ -3,6 +3,7 @@ package me.jaeuk.hr_module.service.employee;
 import lombok.extern.slf4j.Slf4j;
 import me.jaeuk.hr_module.domain.employee.Employee;
 import me.jaeuk.hr_module.domain.work.WorkShift;
+import me.jaeuk.hr_module.domain.work.WorkType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,9 +25,9 @@ class EmployeeServiceTest {
 
     @BeforeAll
     public void init() {
-        employeeService.addEmployee(new Employee("최재욱", WorkShift.TWO_GROUP_TWO_SHIFT_A));
-        employeeService.addEmployee(new Employee("최현욱", WorkShift.TWO_GROUP_TWO_SHIFT_B));
-        employeeService.addEmployee(new Employee("최영근", WorkShift.THREE_GROUP_TWO_SHIFT_A));
+        employeeService.addEmployee(new Employee("최구상"));
+        employeeService.addEmployee(new Employee("최상주"));
+        employeeService.addEmployee(new Employee("최변형"));
     }
 
     @Test
@@ -55,9 +56,9 @@ class EmployeeServiceTest {
     @Test
     public void addEmployee() {
         List<Employee> beforeAmployees = employeeService.getAllEmployees();
-        employeeService.addEmployee(new Employee("최재욱", WorkShift.TWO_GROUP_TWO_SHIFT_A));
-        employeeService.addEmployee(new Employee("최현", WorkShift.TWO_GROUP_TWO_SHIFT_B));
-        employeeService.addEmployee(new Employee("최영근", WorkShift.THREE_GROUP_TWO_SHIFT_A));
+        employeeService.addEmployee(new Employee("최구상"));
+        employeeService.addEmployee(new Employee("최상주"));
+        employeeService.addEmployee(new Employee("최변형"));
         List<Employee> afterEmployees = employeeService.getAllEmployees();
         assertEquals(beforeAmployees.size()+3, afterEmployees.size());
     }

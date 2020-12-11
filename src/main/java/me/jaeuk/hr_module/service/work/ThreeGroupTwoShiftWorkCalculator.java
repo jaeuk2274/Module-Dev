@@ -1,24 +1,23 @@
 package me.jaeuk.hr_module.service.work;
 
+import lombok.AllArgsConstructor;
+import me.jaeuk.hr_module.domain.employee.Employee;
 import me.jaeuk.hr_module.domain.work.WorkShift;
 import me.jaeuk.hr_module.domain.work.WorkTime;
 import me.jaeuk.hr_module.domain.work.WorkType;
 
 import java.time.LocalDate;
 
+@AllArgsConstructor
 public class ThreeGroupTwoShiftWorkCalculator implements WorkCalculator {
-    private WorkShift workShift;
-    private LocalDate dutydate;
-
-    public ThreeGroupTwoShiftWorkCalculator(WorkShift workShift, LocalDate dutydate) {
-        this.workShift = workShift;
-        this.dutydate = dutydate;
-    }
+    private Employee emp;
+    private LocalDate dutyDate;
 
     @Override
     public WorkTime getWorkShift(){
+        WorkShift workShift = emp.getWorkShift();
         WorkType type = workShift.getType();
-        long stdDay = dutydate.toEpochDay() - type.getStartDate().toEpochDay();
+        long stdDay = dutyDate.toEpochDay() - type.getStartDate().toEpochDay();
         long shiftChkCnt = 0;
 
         switch(workShift){

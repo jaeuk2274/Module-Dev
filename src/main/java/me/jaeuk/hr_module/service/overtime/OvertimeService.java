@@ -39,7 +39,7 @@ public class OvertimeService {
             calTime = calTime.minusHours(reqRestTime.getHour()).minusMinutes(reqRestTime.getMinute());
         }
 
-        if ("H".equals(workTime.getWorkYn())){
+        if ("H".equals(workTime.getAttendType())){
             int holidayOver = LocalTime.of(8,0).compareTo(calTime);
             if(holidayOver == -1){
                 reqOvertime.setHolidayOverHrs(calTime.minusHours(8));

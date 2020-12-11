@@ -9,7 +9,7 @@ import me.jaeuk.hr_module.domain.work.WorkType;
 import java.time.LocalDate;
 
 @AllArgsConstructor
-public class TwoGroupTwoShiftWorkCalculator implements WorkCalculator {
+public class FourGroupTwoShiftWorkCalculator implements WorkCalculator {
     private Employee emp;
     private LocalDate dutyDate;
 
@@ -21,24 +21,30 @@ public class TwoGroupTwoShiftWorkCalculator implements WorkCalculator {
         long shiftChkCnt = 0;
 
         switch(workShift){
-            case TWO_GROUP_TWO_SHIFT_A:
-                shiftChkCnt = stdDay%14;
+            case FOUR_GROUP_TWO_SHIFT_A:
+                shiftChkCnt = stdDay%8;
                 break;
-            case TWO_GROUP_TWO_SHIFT_B:
-                shiftChkCnt = (stdDay+7)%14;
+            case FOUR_GROUP_TWO_SHIFT_B:
+                shiftChkCnt = (stdDay+2)%8;
+                break;
+            case FOUR_GROUP_TWO_SHIFT_C:
+                shiftChkCnt = (stdDay+4)%8;
+                break;
+            case FOUR_GROUP_TWO_SHIFT_D:
+                shiftChkCnt = (stdDay+6)%8;
                 break;
             default:
                 throw new IllegalArgumentException("근무조가 없습니다." + workShift.getName());
         }
 
-        if(shiftChkCnt < 5) {
-            return WorkTime.TWO_GROUP_TWO_SHIFT_W1;
-        }else if(shiftChkCnt == 5 || shiftChkCnt == 6) {
-            return WorkTime.TWO_GROUP_TWO_SHIFT_H;
-        }else if(shiftChkCnt < 12) {
-            return WorkTime.TWO_GROUP_TWO_SHIFT_W2;
-        }else if(shiftChkCnt == 12 || shiftChkCnt == 13){
-            return WorkTime.TWO_GROUP_TWO_SHIFT_H;
+        if(shiftChkCnt < 2) {
+            return WorkTime.FOUR_GROUP_TWO_SHIFT_W1;
+        }else if(shiftChkCnt == 2 || shiftChkCnt == 3) {
+            return WorkTime.FOUR_GROUP_TWO_SHIFT_H;
+        }else if(shiftChkCnt < 6) {
+            return WorkTime.FOUR_GROUP_TWO_SHIFT_W2;
+        }else if(shiftChkCnt == 6 || shiftChkCnt == 7) {
+            return WorkTime.FOUR_GROUP_TWO_SHIFT_H;
         }else {
             throw new IllegalArgumentException("잘못된 시간입니다." + workShift.getName());
         }
