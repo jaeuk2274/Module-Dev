@@ -14,4 +14,22 @@ public class OvertimeCommon {
     static LocalTime getPlusTime(LocalTime stdTime, LocalTime plusTime) {
         return stdTime.plusHours(plusTime.getHour()).plusMinutes(plusTime.getMinute());
     }
+
+    static boolean isSmaller(LocalTime stdTime, LocalTime compareTime) {
+        int value = stdTime.compareTo(compareTime);
+        if(value == -1){ return true; }
+        else{ return false; }
+    }
+
+    static boolean isBigger(LocalTime stdTime, LocalTime compareTime) {
+        int value = stdTime.compareTo(compareTime);
+        if(value == 1){ return true;}
+        else{ return false; }
+    }
+
+    static boolean isEqual(LocalTime stdTime, LocalTime compareTime) {
+        int value = stdTime.compareTo(compareTime);
+        if(value == 0){ return true; }
+        else{ return false; }
+    }
 }

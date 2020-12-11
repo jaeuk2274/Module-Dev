@@ -37,6 +37,21 @@ class OvertimeServiceTest {
         overtimeService.calOverTimeHrs(reqOvertime, WorkTime.THREE_GROUP_TWO_SHIFT_H);
         assertEquals(LocalTime.of(8,0), reqOvertime.getHolidayHrs());
         assertEquals(LocalTime.of(7,30), reqOvertime.getHolidayOverHrs());
-        assertEquals(LocalTime.of(4,0), reqOvertime.getNightHrs());
+        assertEquals(LocalTime.of(8,0), reqOvertime.getNightHrs());
+
+        reqOvertime.setAttendTime(LocalTime.of(23,0));
+        reqOvertime.setLeaveTime(LocalTime.of(4,30));
+        overtimeService.calOverTimeHrs(reqOvertime, WorkTime.THREE_GROUP_TWO_SHIFT_H);
+        assertEquals(LocalTime.of(5,30), reqOvertime.getNightHrs());
+
+        reqOvertime.setAttendTime(LocalTime.of(19,0));
+        reqOvertime.setLeaveTime(LocalTime.of(04,30));
+        overtimeService.calOverTimeHrs(reqOvertime, WorkTime.THREE_GROUP_TWO_SHIFT_H);
+        assertEquals(LocalTime.of(6,30), reqOvertime.getNightHrs());
+
+        reqOvertime.setAttendTime(LocalTime.of(23,0));
+        reqOvertime.setLeaveTime(LocalTime.of(6,30));
+        overtimeService.calOverTimeHrs(reqOvertime, WorkTime.THREE_GROUP_TWO_SHIFT_H);
+        assertEquals(LocalTime.of(7,0), reqOvertime.getNightHrs());
     }
 }
