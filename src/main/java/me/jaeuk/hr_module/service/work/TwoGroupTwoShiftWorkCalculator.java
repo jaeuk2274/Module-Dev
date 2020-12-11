@@ -16,8 +16,7 @@ public class TwoGroupTwoShiftWorkCalculator implements WorkCalculator {
     @Override
     public WorkTime getWorkShift(){
         WorkShift workShift = emp.getWorkShift();
-        WorkType type = workShift.getType();
-        long stdDay = dutyDate.toEpochDay() - type.getStartDate().toEpochDay();
+        long stdDay = getStdDay(workShift);
         long shiftChkCnt = 0;
 
         switch(workShift){
@@ -42,6 +41,12 @@ public class TwoGroupTwoShiftWorkCalculator implements WorkCalculator {
         }else {
             throw new IllegalArgumentException("잘못된 시간입니다." + workShift.getName());
         }
+    }
+
+    private long getStdDay(WorkShift workShift) {
+        WorkType type = workShift.getType();
+        long stdDay = dutyDate.toEpochDay() - type.getStartDate().toEpochDay();
+        return stdDay;
     }
 
 }

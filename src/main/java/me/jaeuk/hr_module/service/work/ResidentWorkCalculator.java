@@ -29,11 +29,15 @@ public class ResidentWorkCalculator implements WorkCalculator {
         }
 
         for(WorkTime workTime : WorkTime.values()) {
-            if(attendType.equals(workTime.getAttendType()) && workTime.getWorkType().equals(emp.getWorkType())){
+            if(findByAttendTypeAndWorkTime(attendType, workTime)){
                 return workTime;
             }
         }
         throw new IllegalArgumentException("근무조가 없습니다." + emp);
+    }
+
+    private boolean findByAttendTypeAndWorkTime(String attendType, WorkTime workTime) {
+        return attendType.equals(workTime.getAttendType()) && workTime.getWorkType().equals(emp.getWorkType());
     }
 
 }

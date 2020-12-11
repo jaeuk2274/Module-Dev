@@ -17,30 +17,25 @@ public class WorkService {
     }
 
     private WorkCalculator createWorkCalculate(Employee emp, LocalDate dutydate) {
-        DutyType dutyType = emp.getWorkType().getDutyType();
-
-        if(DutyType.RESIDENT.equals(dutyType)){
-            return new ResidentWorkCalculator(emp, dutydate);
+        WorkShift workShift = emp.getWorkShift();
+        switch(workShift.getType()){
+            case OLD_RESIDENT:
+                return new ResidentWorkCalculator(emp, dutydate);
+            case RESIDENT:
+                return new ResidentWorkCalculator(emp, dutydate);
+            case RESIDENT_DEFORMATION:
+                return new ResidentDeformationWorkCalculator(emp, dutydate);
+            case TWO_GROUP_TWO_SHIFT:
+                return new TwoGroupTwoShiftWorkCalculator(emp, dutydate);
+            case THREE_GROUP_TWO_SHIFT:
+                return new ThreeGroupTwoShiftWorkCalculator(emp, dutydate);
+            case FOUR_GROUP_TWO_SHIFT:
+                return new FourGroupTwoShiftWorkCalculator(emp, dutydate);
+            case DRIVER:
+                return new DriverWorkCalculator(emp, dutydate);
+            default:
+                throw new IllegalArgumentException("근무조가 없습니다." + emp);
         }
-        else if(DutyType.SHIFT.equals(dutyType)){
-            WorkShift workShift = emp.getWorkShift();
-            switch(workShift.getType()){
-                //TODO
-                //case RESIDENT_DEFORMATION
 
-                case TWO_GROUP_TWO_SHIFT:
-                    return new TwoGroupTwoShiftWorkCalculator(emp, dutydate);
-                case THREE_GROUP_TWO_SHIFT:
-                    return new ThreeGroupTwoShiftWorkCalculator(emp, dutydate);
-                case FOUR_GROUP_TWO_SHIFT:
-                    return new FourGroupTwoShiftWorkCalculator(emp, dutydate);
-                //TODO
-                //case DRIVER:
-
-                default:
-                    throw new IllegalArgumentException("근무조가 없습니다." + emp);
-            }
-        }
-        return new ResidentWorkCalculator(emp, dutydate);
     }
 }
