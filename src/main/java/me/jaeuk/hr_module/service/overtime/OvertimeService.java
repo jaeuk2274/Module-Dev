@@ -19,10 +19,9 @@ public class OvertimeService {
     public boolean validateOverTimeReq(Overtime reqOvertime, WorkTime workTime){
         LocalTime reqAttendTime = reqOvertime.getAttendTime();
         LocalTime reqLeaveTime = reqOvertime.getLeaveTime();
-        String msg = getMsg(reqOvertime, workTime);
 
         if(isEqual(reqAttendTime, reqLeaveTime)){
-            throw new OverTimeValidateException("연장근로 시작시간과 종료시간이 같습니다." + msg);
+            throw new OverTimeValidateException("연장근로 시작시간과 종료시간이 같습니다." + getMsg(reqOvertime, workTime));
         }
 
         AttendType attendType = workTime.getAttendType();
@@ -32,11 +31,11 @@ public class OvertimeService {
         else {
             if(isSmaller(reqAttendTime,NOON)){
                 if(isBigger(reqLeaveTime, workTime.getAttendTime())){
-                    throw new OverTimeValidateException("연장근로 종료시간이 근무 시작시간보다 늦습니다."+ msg);
+                    throw new OverTimeValidateException("연장근로 종료시간이 근무 시작시간보다 늦습니다."+ getMsg(reqOvertime, workTime));
                 }
             } else{
                 if(isSmaller(reqAttendTime, workTime.getLaeveTime())){
-                    throw new OverTimeValidateException("연장근로 시작시간이 근무 종료시간보다 빠릅니다."+ msg);
+                    throw new OverTimeValidateException("연장근로 시작시간이 근무 종료시간보다 빠릅니다."+ getMsg(reqOvertime, workTime));
                 }
             }
         }
@@ -79,7 +78,7 @@ public class OvertimeService {
         calTime = getMinusTime(calTime, reqRestTime);
         return calTime;
     }
-    
+
     private LocalTime getOverHrs(AttendType attendType, LocalTime calTime) {
         if (isHoliday(attendType)){
             return LocalTime.of(0,0);
