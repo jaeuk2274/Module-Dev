@@ -66,7 +66,7 @@ class OvertimeServiceTest {
         assertAll("상주 통합테스트",
                 () -> assertTrue(overtimeService.validateOverTimeReq(resident7, WorkTime.RESIDENT_H)),
                 () -> assertThrows(OverTimeValidateException.class, () -> {overtimeService.validateOverTimeReq(resident8, WorkTime.RESIDENT_W);}),
-                () -> assertThrows(OverTimeValidateException.class, () -> {overtimeService.validateOverTimeReq(resident9, WorkTime.RESIDENT_W);})
+                () -> assertThrows(OverTimeValidateException.class, () -> {overtimeService.calOverTimeHrs(resident9, WorkTime.RESIDENT_W);})
         );
     }
 

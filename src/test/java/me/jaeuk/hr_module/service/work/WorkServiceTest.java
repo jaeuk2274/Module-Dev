@@ -34,7 +34,6 @@ class WorkServiceTest {
         assertEquals(WorkTime.RESIDENT_W, new ResidentWorkCalculator(emp, LocalDate.of(2020,11,6)).getWorkTime());
         assertEquals(WorkTime.RESIDENT_H, new ResidentWorkCalculator(emp, LocalDate.of(2020,11,7)).getWorkTime());
         assertEquals(WorkTime.RESIDENT_H, new ResidentWorkCalculator(emp, LocalDate.of(2020,11,8)).getWorkTime());
-
     }
 
 

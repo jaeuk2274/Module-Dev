@@ -13,10 +13,12 @@ public class OverTimeCommon {
     static LocalTime NOON = LocalTime.of(12,0);
 
     static LocalTime getMinusTime(LocalTime stdTime, LocalTime minTime) {
+        minTime = getNullUpdateZeroTime(minTime);
         return stdTime.minusHours(minTime.getHour()).minusMinutes(minTime.getMinute());
     }
 
     static LocalTime getPlusTime(LocalTime stdTime, LocalTime plusTime) {
+        plusTime = getNullUpdateZeroTime(plusTime);
         return stdTime.plusHours(plusTime.getHour()).plusMinutes(plusTime.getMinute());
     }
 
@@ -52,5 +54,9 @@ public class OverTimeCommon {
 
     static boolean isHoliday(AttendType attendType) {
         return AttendType.H.equals(attendType);
+    }
+
+    private static LocalTime getNullUpdateZeroTime(LocalTime stdTime) {
+        return stdTime == null ? LocalTime.of(0, 0) : stdTime;
     }
 }
