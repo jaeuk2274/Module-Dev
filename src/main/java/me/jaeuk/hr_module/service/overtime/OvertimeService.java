@@ -19,24 +19,26 @@ public class OvertimeService {
     public boolean validateOverTimeReq(Overtime reqOvertime, WorkTime workTime){
         LocalTime reqAttendTime = reqOvertime.getAttendTime();
         LocalTime reqLeaveTime = reqOvertime.getLeaveTime();
-
         if(isEqual(reqAttendTime, reqLeaveTime)){
             throw new OverTimeValidateException("연장근로 시작시간과 종료시간이 같습니다." + getMsg(reqOvertime, workTime));
+        }
+        LocalTime calTime = getMinusTime(reqLeaveTime, reqAttendTime);
+        if(isBigger(calTime, MAX_OVERTIME_HRS)){
+            throw new OverTimeValidateException(MAX_OVERTIME_HRS + " 이상 연장근로 하실 수 없습니다." + getMsg(reqOvertime, workTime));
         }
 
         AttendType attendType = workTime.getAttendType();
         if(isHoliday(attendType)){
             return true;
         }
-        else {
-            if(isSmaller(reqAttendTime,NOON)){
-                if(isBigger(reqLeaveTime, workTime.getAttendTime())){
-                    throw new OverTimeValidateException("연장근로 종료시간이 근무 시작시간보다 늦습니다."+ getMsg(reqOvertime, workTime));
-                }
-            } else{
-                if(isSmaller(reqAttendTime, workTime.getLaeveTime())){
-                    throw new OverTimeValidateException("연장근로 시작시간이 근무 종료시간보다 빠릅니다."+ getMsg(reqOvertime, workTime));
-                }
+
+        if(isSmaller(reqAttendTime, workTime.getAttendTime())){
+            if(isBigger(reqLeaveTime, workTime.getAttendTime())){
+                throw new OverTimeValidateException("연장근로 종료시간이 근무 시작시간보다 늦습니다."+ getMsg(reqOvertime, workTime));
+            }
+        } else{
+            if(isSmaller(reqAttendTime, workTime.getLaeveTime())){
+                throw new OverTimeValidateException("연장근로 시작시간이 근무 종료시간보다 빠릅니다."+ getMsg(reqOvertime, workTime));
             }
         }
         return true;
@@ -66,12 +68,9 @@ public class OvertimeService {
         LocalTime reqLeaveTime = reqOvertime.getLeaveTime();
         LocalTime reqRestTime = reqOvertime.getRestTime();
         LocalTime calTime;
-        if (isOverMidnight(reqLeaveTime)) {
-            calTime = getMinusTime(reqLeaveTime, reqAttendTime);
-        } else {
-            calTime = LocalTime.of(24 - reqAttendTime.getHour(), 0).minusMinutes(reqAttendTime.getMinute());
-            calTime = getPlusTime(calTime, reqLeaveTime);
-        }
+
+        calTime = getMinusTime(reqLeaveTime, reqAttendTime);
+
         if (isBigger(reqRestTime, calTime)){
             throw new OverTimeValidateException("휴게시간이 연장근로시간보다 많습니다." + getMsg(reqOvertime));
         }
@@ -107,33 +106,40 @@ public class OvertimeService {
         LocalTime reqAttendTime = reqOvertime.getAttendTime();
         LocalTime reqLeaveTime = reqOvertime.getLeaveTime();
 
-        LocalTime applyStartTime;
-        if(isSmaller(reqAttendTime, NOON)){
-            applyStartTime = reqAttendTime;
-        } else{
-            applyStartTime = isBigger(reqAttendTime, START_NIGHT_HRS) ? reqAttendTime : START_NIGHT_HRS;
+        if(notNightAttendSection(reqAttendTime) || notNightLeaveSection(reqLeaveTime)){
+            return LocalTime.of(0,0);
         }
 
-        LocalTime applyEndTime;
-        if(isBigger(reqLeaveTime, NOON)){
-            applyEndTime = reqLeaveTime;
-        } else{
-            applyEndTime = isSmaller(reqLeaveTime, END_NIGHT_HRS) ? reqLeaveTime : END_NIGHT_HRS;
+        if(isEqualOrBigger(reqAttendTime, MIDNIGHT)) {
+            if(isSmaller(reqAttendTime, END_NIGHT_HRS)){
+                LocalTime applyTime = isSmaller(reqLeaveTime, END_NIGHT_HRS) ? reqLeaveTime : END_NIGHT_HRS;
+                return getMinusTime(applyTime, reqAttendTime);
+            }
+            if(isBigger(reqLeaveTime, START_NIGHT_HRS) || isSmaller(reqLeaveTime, END_NIGHT_HRS)){
+                LocalTime applyTime = isBigger(reqAttendTime, START_NIGHT_HRS) ? reqAttendTime : START_NIGHT_HRS;
+                return getMinusTime(reqLeaveTime, applyTime);
+            }
         }
 
-        LocalTime nightHrs = getMinusTime(applyEndTime, applyStartTime);
+        if(isEqualOrBigger(reqLeaveTime, MIDNIGHT)){
+            if(isEqualOrSmaller(reqLeaveTime, END_NIGHT_HRS)){
+                LocalTime applyTime = isBigger(reqAttendTime, START_NIGHT_HRS) ? reqAttendTime : START_NIGHT_HRS;
+                return getMinusTime(reqLeaveTime, applyTime);
+            }
+        }
+
+        LocalTime nightHrs = LocalTime.of(0,0);
         return nightHrs;
     }
 
-    private boolean isOverMidnight(LocalTime reqLeaveTime) {
-        int overMidnight = reqLeaveTime.compareTo(MIDNIGHT);
-        if(overMidnight <= 0){
-            return false;
-        } else{
-            return true;
-        }
-    }
 
+
+    private boolean notNightAttendSection(LocalTime reqAttendTime) {
+        return isEqualOrBigger(END_NIGHT_HRS, reqAttendTime) && isEqualOrSmaller(getMinusTime(START_NIGHT_HRS, MAX_OVERTIME_HRS), reqAttendTime);
+    }
+    private boolean notNightLeaveSection(LocalTime reqLeaveTime) {
+        return isEqualOrBigger(reqLeaveTime,getPlusTime(END_NIGHT_HRS, MAX_OVERTIME_HRS)) && isEqualOrSmaller(reqLeaveTime, START_NIGHT_HRS);
+    }
     private String getMsg(Overtime reqOvertime) {
         return " 신청(" + reqOvertime.getAttendTime() + "~" + reqOvertime.getLeaveTime() + ",휴게: " + reqOvertime.getRestTime() + ")";
     }

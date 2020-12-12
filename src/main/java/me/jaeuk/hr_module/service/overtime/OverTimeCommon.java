@@ -7,6 +7,7 @@ import java.time.LocalTime;
 public class OverTimeCommon {
 
     static LocalTime MAX_HOLIDAY_HRS = LocalTime.of(8,0);
+    static LocalTime MAX_OVERTIME_HRS = LocalTime.of(12,0);
     static LocalTime START_NIGHT_HRS = LocalTime.of(22,0);
     static LocalTime END_NIGHT_HRS = LocalTime.of(6,0);
     static LocalTime MIDNIGHT = LocalTime.of(0,0);
