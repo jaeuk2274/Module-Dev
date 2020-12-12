@@ -209,6 +209,7 @@ class OvertimeServiceTest {
         Overtime resident16 = new Overtime();
         Overtime resident17 = new Overtime();
         Overtime resident18 = new Overtime();
+        Overtime resident19 = new Overtime();
         resident13.setAttendTime(LocalTime.of(11,0));
         resident13.setLeaveTime(LocalTime.of(23,0));
         resident14.setAttendTime(LocalTime.of(14,0));
@@ -221,14 +222,16 @@ class OvertimeServiceTest {
         resident17.setLeaveTime(LocalTime.of(3,0));
         resident18.setAttendTime(LocalTime.of(13,0));
         resident18.setLeaveTime(LocalTime.of(1,0));
-
+        resident19.setAttendTime(LocalTime.of(23,0));
+        resident19.setLeaveTime(LocalTime.of(0,0));
         assertAll("상주 야간시간 테스트",
                 () -> assertEquals(LocalTime.of(1,0),overtimeService.calOverTimeHrs(resident13, WorkTime.RESIDENT_H).getNightHrs()),
                 () -> assertEquals(LocalTime.of(4,0),overtimeService.calOverTimeHrs(resident14, WorkTime.RESIDENT_H).getNightHrs()),
                 () -> assertEquals(LocalTime.of(0,30),overtimeService.calOverTimeHrs(resident15, WorkTime.RESIDENT_H).getNightHrs()),
                 () -> assertEquals(LocalTime.of(2,0),overtimeService.calOverTimeHrs(resident16, WorkTime.RESIDENT_H).getNightHrs()),
                 () -> assertEquals(LocalTime.of(2,0),overtimeService.calOverTimeHrs(resident17, WorkTime.RESIDENT_H).getNightHrs()),
-                () -> assertEquals(LocalTime.of(3,0),overtimeService.calOverTimeHrs(resident18, WorkTime.RESIDENT_H).getNightHrs())
+                () -> assertEquals(LocalTime.of(3,0),overtimeService.calOverTimeHrs(resident18, WorkTime.RESIDENT_H).getNightHrs()),
+                () -> assertEquals(LocalTime.of(1,0),overtimeService.calOverTimeHrs(resident19, WorkTime.RESIDENT_H).getNightHrs())
         );
 
 

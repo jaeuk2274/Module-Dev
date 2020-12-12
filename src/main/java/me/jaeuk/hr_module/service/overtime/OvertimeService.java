@@ -128,7 +128,7 @@ public class OvertimeService {
             }
         }
 
-        throw new OverTimeValidateException("야간시간 계산이 잘못되었습니다." + getMsg(reqOvertime));
+        return LocalTime.of(0,0);
     }
 
 
