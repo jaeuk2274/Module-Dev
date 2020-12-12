@@ -115,14 +115,14 @@ public class OvertimeService {
                 LocalTime applyLeaveTime = getApplyLeaveTime(reqLeaveTime);
                 return getMinusTime(applyLeaveTime, reqAttendTime);
             }
+            if(isBigger(reqLeaveTime, START_NIGHT_HRS) || isSmaller(reqLeaveTime, END_NIGHT_HRS)){
+                LocalTime applyAttendTime = getApplyAttendTime(reqAttendTime);
+                return getMinusTime(reqLeaveTime, applyAttendTime);
+            }
             if(isEqualOrBigger(reqAttendTime, getMinusTime(reqLeaveTime,MAX_OVERTIME_HRS)) && isEqualOrBigger(reqLeaveTime, END_NIGHT_HRS)){
                 LocalTime applyAttendTime = getApplyAttendTime(reqAttendTime);
                 LocalTime applyLeaveTime = getApplyLeaveTime(reqLeaveTime);
                 return getMinusTime(applyLeaveTime, applyAttendTime);
-            }
-            if(isBigger(reqLeaveTime, START_NIGHT_HRS) || isSmaller(reqLeaveTime, END_NIGHT_HRS)){
-                LocalTime applyAttendTime = getApplyAttendTime(reqAttendTime);
-                return getMinusTime(reqLeaveTime, applyAttendTime);
             }
         }
 
