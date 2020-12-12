@@ -112,27 +112,35 @@ public class OvertimeService {
 
         if(isEqualOrBigger(reqAttendTime, MIDNIGHT)) {
             if(isSmaller(reqAttendTime, END_NIGHT_HRS)){
-                LocalTime applyTime = isSmaller(reqLeaveTime, END_NIGHT_HRS) ? reqLeaveTime : END_NIGHT_HRS;
-                return getMinusTime(applyTime, reqAttendTime);
+                LocalTime applyLeaveTime = getApplyLeaveTime(reqLeaveTime);
+                return getMinusTime(applyLeaveTime, reqAttendTime);
             }
             if(isBigger(reqLeaveTime, START_NIGHT_HRS) || isSmaller(reqLeaveTime, END_NIGHT_HRS)){
-                LocalTime applyTime = isBigger(reqAttendTime, START_NIGHT_HRS) ? reqAttendTime : START_NIGHT_HRS;
-                return getMinusTime(reqLeaveTime, applyTime);
+                LocalTime applyAttendTime = getApplyAttendTime(reqAttendTime);
+                return getMinusTime(reqLeaveTime, applyAttendTime);
+            }
+            if(isEqualOrBigger(reqAttendTime, getMinusTime(reqLeaveTime,MAX_OVERTIME_HRS)) && isEqualOrBigger(reqLeaveTime, END_NIGHT_HRS)){
+                LocalTime applyAttendTime = getApplyAttendTime(reqAttendTime);
+                LocalTime applyLeaveTime = getApplyLeaveTime(reqLeaveTime);
+                return getMinusTime(applyLeaveTime, applyAttendTime);
             }
         }
 
         if(isEqualOrBigger(reqLeaveTime, MIDNIGHT)){
             if(isEqualOrSmaller(reqLeaveTime, END_NIGHT_HRS)){
-                LocalTime applyTime = isBigger(reqAttendTime, START_NIGHT_HRS) ? reqAttendTime : START_NIGHT_HRS;
-                return getMinusTime(reqLeaveTime, applyTime);
+                LocalTime applyAttendTime = getApplyAttendTime(reqAttendTime);
+                return getMinusTime(reqLeaveTime, applyAttendTime);
             }
         }
-
         return LocalTime.of(0,0);
     }
 
-
-
+    private LocalTime getApplyAttendTime(LocalTime reqAttendTime) {
+        return isBigger(reqAttendTime, START_NIGHT_HRS) ? reqAttendTime : START_NIGHT_HRS;
+    }
+    private LocalTime getApplyLeaveTime(LocalTime reqLeaveTime) {
+        return isSmaller(reqLeaveTime, END_NIGHT_HRS) ? reqLeaveTime : END_NIGHT_HRS;
+    }
     private boolean notNightAttendSection(LocalTime reqAttendTime) {
         return isEqualOrBigger(END_NIGHT_HRS, reqAttendTime) && isEqualOrSmaller(getMinusTime(START_NIGHT_HRS, MAX_OVERTIME_HRS), reqAttendTime);
     }

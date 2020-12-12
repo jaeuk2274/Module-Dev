@@ -210,6 +210,9 @@ class OvertimeServiceTest {
         Overtime resident17 = new Overtime();
         Overtime resident18 = new Overtime();
         Overtime resident19 = new Overtime();
+        Overtime resident20 = new Overtime();
+        Overtime resident21 = new Overtime();
+        Overtime resident22 = new Overtime();
         resident13.setAttendTime(LocalTime.of(11,0));
         resident13.setLeaveTime(LocalTime.of(23,0));
         resident14.setAttendTime(LocalTime.of(14,0));
@@ -224,6 +227,13 @@ class OvertimeServiceTest {
         resident18.setLeaveTime(LocalTime.of(1,0));
         resident19.setAttendTime(LocalTime.of(23,0));
         resident19.setLeaveTime(LocalTime.of(0,0));
+        resident20.setAttendTime(LocalTime.of(0,0));
+        resident20.setLeaveTime(LocalTime.of(1,0));
+        resident21.setAttendTime(LocalTime.of(0,0));
+        resident21.setLeaveTime(LocalTime.of(8,0));
+        resident22.setAttendTime(LocalTime.of(23,0));
+        resident22.setLeaveTime(LocalTime.of(8,0));
+
         assertAll("상주 야간시간 테스트",
                 () -> assertEquals(LocalTime.of(1,0),overtimeService.calOverTimeHrs(resident13, WorkTime.RESIDENT_H).getNightHrs()),
                 () -> assertEquals(LocalTime.of(4,0),overtimeService.calOverTimeHrs(resident14, WorkTime.RESIDENT_H).getNightHrs()),
@@ -231,19 +241,11 @@ class OvertimeServiceTest {
                 () -> assertEquals(LocalTime.of(2,0),overtimeService.calOverTimeHrs(resident16, WorkTime.RESIDENT_H).getNightHrs()),
                 () -> assertEquals(LocalTime.of(2,0),overtimeService.calOverTimeHrs(resident17, WorkTime.RESIDENT_H).getNightHrs()),
                 () -> assertEquals(LocalTime.of(3,0),overtimeService.calOverTimeHrs(resident18, WorkTime.RESIDENT_H).getNightHrs()),
-                () -> assertEquals(LocalTime.of(1,0),overtimeService.calOverTimeHrs(resident19, WorkTime.RESIDENT_H).getNightHrs())
+                () -> assertEquals(LocalTime.of(1,0),overtimeService.calOverTimeHrs(resident19, WorkTime.RESIDENT_H).getNightHrs()),
+                () -> assertEquals(LocalTime.of(1,0),overtimeService.calOverTimeHrs(resident20, WorkTime.RESIDENT_H).getNightHrs()),
+                () -> assertEquals(LocalTime.of(6,0),overtimeService.calOverTimeHrs(resident21, WorkTime.RESIDENT_H).getNightHrs()),
+                () -> assertEquals(LocalTime.of(7,0),overtimeService.calOverTimeHrs(resident22, WorkTime.RESIDENT_H).getNightHrs())
         );
-
-
-// 11 ~ 23 - 1 , 12시간 나온다
-
-// 14 ~ 02  . 4시간
-
-// 23~ 23 30
-// 23 ~ 01
-// 01 ~ 03
     }
-
-
 
 }
