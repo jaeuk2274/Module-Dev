@@ -17,7 +17,6 @@ public class ResidentDeformationWorkCalculator implements WorkCalculator {
     @Override
     public WorkTime getWorkShift(){
         DayOfWeek dayOfWeek = dutyDate.getDayOfWeek();
-        String attendType;
 
         if (dayOfWeek.equals(MONDAY)) {
            return WorkTime.RESIDENT_DEFORMATION_W1;

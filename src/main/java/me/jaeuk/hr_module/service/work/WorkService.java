@@ -20,7 +20,7 @@ public class WorkService {
         WorkShift workShift = emp.getWorkShift();
         switch(workShift.getType()){
             case OLD_RESIDENT:
-                return new ResidentWorkCalculator(emp, dutydate);
+                return new OldResidentWorkCalculator(emp, dutydate);
             case RESIDENT:
                 return new ResidentWorkCalculator(emp, dutydate);
             case RESIDENT_DEFORMATION:
