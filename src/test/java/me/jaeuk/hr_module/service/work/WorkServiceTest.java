@@ -27,13 +27,13 @@ class WorkServiceTest {
         Employee emp = new Employee("최이조");
         emp.setWorkType(WorkType.RESIDENT);
 
-        assertEquals(WorkTime.RESIDENT_W, new ResidentWorkCalculator(emp, LocalDate.of(2020,11,2)).getWorkShift());
-        assertEquals(WorkTime.RESIDENT_W, new ResidentWorkCalculator(emp, LocalDate.of(2020,11,3)).getWorkShift());
-        assertEquals(WorkTime.RESIDENT_W, new ResidentWorkCalculator(emp, LocalDate.of(2020,11,4)).getWorkShift());
-        assertEquals(WorkTime.RESIDENT_W, new ResidentWorkCalculator(emp, LocalDate.of(2020,11,5)).getWorkShift());
-        assertEquals(WorkTime.RESIDENT_W, new ResidentWorkCalculator(emp, LocalDate.of(2020,11,6)).getWorkShift());
-        assertEquals(WorkTime.RESIDENT_H, new ResidentWorkCalculator(emp, LocalDate.of(2020,11,7)).getWorkShift());
-        assertEquals(WorkTime.RESIDENT_H, new ResidentWorkCalculator(emp, LocalDate.of(2020,11,8)).getWorkShift());
+        assertEquals(WorkTime.RESIDENT_W, new ResidentWorkCalculator(emp, LocalDate.of(2020,11,2)).getWorkTime());
+        assertEquals(WorkTime.RESIDENT_W, new ResidentWorkCalculator(emp, LocalDate.of(2020,11,3)).getWorkTime());
+        assertEquals(WorkTime.RESIDENT_W, new ResidentWorkCalculator(emp, LocalDate.of(2020,11,4)).getWorkTime());
+        assertEquals(WorkTime.RESIDENT_W, new ResidentWorkCalculator(emp, LocalDate.of(2020,11,5)).getWorkTime());
+        assertEquals(WorkTime.RESIDENT_W, new ResidentWorkCalculator(emp, LocalDate.of(2020,11,6)).getWorkTime());
+        assertEquals(WorkTime.RESIDENT_H, new ResidentWorkCalculator(emp, LocalDate.of(2020,11,7)).getWorkTime());
+        assertEquals(WorkTime.RESIDENT_H, new ResidentWorkCalculator(emp, LocalDate.of(2020,11,8)).getWorkTime());
 
     }
 

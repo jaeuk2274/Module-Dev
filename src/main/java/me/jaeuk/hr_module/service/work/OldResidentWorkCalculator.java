@@ -16,7 +16,7 @@ public class OldResidentWorkCalculator implements WorkCalculator {
     private LocalDate dutyDate;
 
     @Override
-    public WorkTime getWorkShift(){
+    public WorkTime getWorkTime(){
         DayOfWeek dayOfWeek = dutyDate.getDayOfWeek();
         String attendType;
 

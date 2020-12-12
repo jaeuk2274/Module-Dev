@@ -16,7 +16,7 @@ public class ThreeGroupTwoShiftWorkCalculator implements WorkCalculator {
     private LocalDate dutyDate;
 
     @Override
-    public WorkTime getWorkShift(){
+    public WorkTime getWorkTime(){
         WorkShift workShift = emp.getWorkShift();
         long stdDay = getStdDay(workShift, dutyDate);
         long shiftChkCnt = 0;

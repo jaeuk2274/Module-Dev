@@ -1,7 +1,6 @@
 package me.jaeuk.hr_module.service.work;
 
 import me.jaeuk.hr_module.domain.employee.Employee;
-import me.jaeuk.hr_module.domain.work.DutyType;
 import me.jaeuk.hr_module.domain.work.WorkShift;
 import me.jaeuk.hr_module.domain.work.WorkTime;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,7 @@ public class WorkService {
 
     public WorkTime getWorkTime(Employee emp, LocalDate dutydate){
         WorkCalculator workCalculator = createWorkCalculate(emp, dutydate);
-        return workCalculator.getWorkShift();
+        return workCalculator.getWorkTime();
     }
 
     private WorkCalculator createWorkCalculate(Employee emp, LocalDate dutydate) {
