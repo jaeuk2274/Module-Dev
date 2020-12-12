@@ -6,7 +6,11 @@ import java.time.LocalDate;
 
 @Getter
 public enum WorkShift {
-    TWO_GROUP_TWO_SHIFT_A("2조2교대 A조", WorkType.TWO_GROUP_TWO_SHIFT)
+    OLD_RESIDENT_A("구상주", WorkType.OLD_RESIDENT)
+    , RESIDENT_A("상주", WorkType.RESIDENT)
+    , RESIDENT_DEFORMATION_A("상주(변형)", WorkType.RESIDENT_DEFORMATION)
+    , DRIVER_A("운전직", WorkType.DRIVER)
+    , TWO_GROUP_TWO_SHIFT_A("2조2교대 A조", WorkType.TWO_GROUP_TWO_SHIFT)
     , TWO_GROUP_TWO_SHIFT_B("2조2교대 B조", WorkType.TWO_GROUP_TWO_SHIFT)
     , THREE_GROUP_TWO_SHIFT_A("3조2교대 A조", WorkType.THREE_GROUP_TWO_SHIFT)
     , THREE_GROUP_TWO_SHIFT_B("3조2교대 B조", WorkType.THREE_GROUP_TWO_SHIFT)

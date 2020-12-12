@@ -5,27 +5,23 @@
 <mapper namespace="me.jaeuk.hr_module.repository.employee.EmployeeMapper">
 
     <select id="selectEmployeeById" resultType="Employee">
-        SELECT emp_id
-             ,emp_name
-             ,work_shift
-        FROM Employee
-        WHERE emp_id = #{prodId}
+        SELECT  e.emp_id, e.emp_name, e.work_type, e.work_shift
+        FROM    EMP_V e
+        WHERE   emp_id = #{empId}
     </select>
 
     <select id="selectAllEmployees" resultType="Employee">
-        SELECT emp_id
-             ,emp_name
-             ,work_shift
-        FROM Employee
+        SELECT  e.emp_id, e.emp_name, e.work_type, e.work_shift
+        FROM    EMP_V e
     </select>
 
     <insert id="insertEmployee" parameterType="Employee">
-        INSERT INTO Employee (emp_name, work_shift)
-        VALUES (#{empName}, #{workShift})
+        INSERT INTO EMP (emp_name)
+        VALUES (#{empName})
     </insert>
 
     <delete id="deleteEmployee" parameterType="Employee">
-        DELETE Employee
+        DELETE EMP
         WHERE  1=1
         AND emp_id like #{empId}
     </delete>

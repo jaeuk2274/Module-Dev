@@ -20,6 +20,7 @@
         <tr>
             <th>사원ID</th>
             <th>성명</th>
+            <th>근무형태</th>
             <th>근무조</th>
         </tr>
         </thead>
@@ -28,6 +29,7 @@
             <tr>
                 <td> <span id="empId">{{emp.empId}}</span></td>
                 <td> <span id="empName">{{emp.empName}}</span></td>
+                <td> <span id="workType">{{emp.workType}}</span></td>
                 <td> <span id="workShift">{{emp.workShift}}</span></td>
             </tr>
         {{/emp}}
@@ -37,7 +39,10 @@
                 <tr>
                     <td>{{empId}}</td>
                     <td><a href="/login/{{empId}}">{{empName}}</a></td>
-                    <td>{{workShift.name}}</td>
+                    <td>{{#workType}} {{workType.name}} {{/workType}}
+                        {{^workType}} 근무형태가 없습니다. {{/workType}} </td>
+                    <td>{{#workShift}} {{workShift.name}} {{/workShift}}
+                        {{^workShift}} 근무조가 없습니다. {{/workShift}} </td>
                 </tr>
             {{/empList}}
         {{/emp}}
