@@ -234,7 +234,7 @@ class OvertimeServiceTest {
         resident22.setAttendTime(LocalTime.of(23,0));
         resident22.setLeaveTime(LocalTime.of(8,0));
 
-        assertAll("상주 야간시간 테스트",
+        assertAll("야간시간 테스트",
                 () -> assertEquals(LocalTime.of(1,0),overtimeService.calOverTimeHrs(resident13, WorkTime.RESIDENT_H).getNightHrs()),
                 () -> assertEquals(LocalTime.of(4,0),overtimeService.calOverTimeHrs(resident14, WorkTime.RESIDENT_H).getNightHrs()),
                 () -> assertEquals(LocalTime.of(0,30),overtimeService.calOverTimeHrs(resident15, WorkTime.RESIDENT_H).getNightHrs()),
