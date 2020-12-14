@@ -1,7 +1,7 @@
 package me.jaeuk.hr_module.service.work;
 
 import lombok.AllArgsConstructor;
-import me.jaeuk.hr_module.domain.employee.Employee;
+import me.jaeuk.hr_module.domain.employee.Emp;
 import me.jaeuk.hr_module.domain.work.WorkTime;
 
 import java.time.DayOfWeek;
@@ -12,7 +12,7 @@ import static java.time.DayOfWeek.SUNDAY;
 
 @AllArgsConstructor
 public class DriverWorkCalculator implements WorkCalculator {
-    private Employee emp;
+    private Emp emp;
     private LocalDate dutyDate;
 
     @Override

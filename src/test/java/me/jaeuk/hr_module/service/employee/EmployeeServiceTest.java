@@ -1,11 +1,8 @@
 package me.jaeuk.hr_module.service.employee;
 
 import lombok.extern.slf4j.Slf4j;
-import me.jaeuk.hr_module.domain.employee.Employee;
-import me.jaeuk.hr_module.domain.work.WorkShift;
-import me.jaeuk.hr_module.domain.work.WorkType;
+import me.jaeuk.hr_module.domain.employee.Emp;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,45 +18,45 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmployeeServiceTest {
 
     @Autowired
-    private EmployeeService employeeService;
+    private EmpService employeeService;
 
     @BeforeAll
     public void init() {
-        employeeService.addEmployee(new Employee("최구상"));
-        employeeService.addEmployee(new Employee("최상주"));
-        employeeService.addEmployee(new Employee("최변형"));
+        employeeService.addEmployee(new Emp("최구상"));
+        employeeService.addEmployee(new Emp("최상주"));
+        employeeService.addEmployee(new Emp("최변형"));
     }
 
     @Test
     public void getEmployeeById() {
-        Employee emp = employeeService.getEmployeeById(1L);
+        Emp emp = employeeService.getEmployeeById(1L);
         log.info("emp {}", emp);
     }
 
     @Test
     public void getAllEmployees() {
-        List<Employee> employees = employeeService.getAllEmployees();
+        List<Emp> employees = employeeService.getAllEmployees();
         log.info("employees {}", employees);
     }
 
     @Test
     public void deleteEmployee() {
-        List<Employee> beforeAmployees = employeeService.getAllEmployees();
-        Employee emp = new Employee();
+        List<Emp> beforeAmployees = employeeService.getAllEmployees();
+        Emp emp = new Emp();
         emp.setEmpId(1l);
         employeeService.deleteEmployee(emp);
-        List<Employee> afterEmployees = employeeService.getAllEmployees();
+        List<Emp> afterEmployees = employeeService.getAllEmployees();
         assertEquals(beforeAmployees.size()-1,afterEmployees.size());
     }
 
     @Transactional
     @Test
     public void addEmployee() {
-        List<Employee> beforeAmployees = employeeService.getAllEmployees();
-        employeeService.addEmployee(new Employee("최구상"));
-        employeeService.addEmployee(new Employee("최상주"));
-        employeeService.addEmployee(new Employee("최변형"));
-        List<Employee> afterEmployees = employeeService.getAllEmployees();
+        List<Emp> beforeAmployees = employeeService.getAllEmployees();
+        employeeService.addEmployee(new Emp("최구상"));
+        employeeService.addEmployee(new Emp("최상주"));
+        employeeService.addEmployee(new Emp("최변형"));
+        List<Emp> afterEmployees = employeeService.getAllEmployees();
         assertEquals(beforeAmployees.size()+3, afterEmployees.size());
     }
 }

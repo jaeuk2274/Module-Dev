@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="me.jaeuk.hr_module.repository.employee.EmpMapper">
+
+    <select id="selectEmployeeById" resultType="Emp">
+        SELECT  e.emp_id, e.emp_name, e.emp_type, e.work_type, e.work_shift
+        FROM    EMP_V e
+        WHERE   emp_id = #{empId}
+    </select>
+
+    <select id="selectAllEmployees" resultType="Emp">
+        SELECT  e.emp_id, e.emp_name, e.emp_type, e.work_type, e.work_shift
+        FROM    EMP_V e
+    </select>
+
+    <insert id="insertEmployee" parameterType="Emp">
+        INSERT INTO EMP (emp_name, emp_type)
+        VALUES (#{empName}, #{empType})
+    </insert>
+
+    <delete id="deleteEmployee" parameterType="Emp">
+        DELETE EMP
+        WHERE  1=1
+        AND emp_id like #{empId}
+    </delete>
+
+</mapper>

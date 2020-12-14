@@ -1,6 +1,6 @@
 package me.jaeuk.hr_module.service.work;
 
-import me.jaeuk.hr_module.domain.employee.Employee;
+import me.jaeuk.hr_module.domain.employee.Emp;
 import me.jaeuk.hr_module.domain.work.WorkShift;
 import me.jaeuk.hr_module.domain.work.WorkTime;
 import org.springframework.stereotype.Service;
@@ -10,12 +10,12 @@ import java.time.LocalDate;
 @Service
 public class WorkService {
 
-    public WorkTime getWorkTime(Employee emp, LocalDate dutydate){
+    public WorkTime getWorkTime(Emp emp, LocalDate dutydate){
         WorkCalculator workCalculator = createWorkCalculate(emp, dutydate);
         return workCalculator.getWorkTime();
     }
 
-    private WorkCalculator createWorkCalculate(Employee emp, LocalDate dutydate) {
+    private WorkCalculator createWorkCalculate(Emp emp, LocalDate dutydate) {
         WorkShift workShift = emp.getWorkShift();
         switch(workShift.getType()){
             case OLD_RESIDENT:

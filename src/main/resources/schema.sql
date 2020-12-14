@@ -3,7 +3,8 @@ DROP TABLE IF EXISTS EMP;
 CREATE TABLE EMP
 (
     emp_id      IDENTITY        PRIMARY KEY,
-    emp_name    VARCHAR(30)     NOT NULL
+    emp_name    VARCHAR(30)     NOT NULL,
+    emp_type    VARCHAR(30)     NOT NULL
 );
 
 DROP TABLE IF EXISTS EMP_WORK;
@@ -28,7 +29,7 @@ WHERE   (emp_id, apply_date) IN
 ;
 
 CREATE VIEW EMP_V AS
-SELECT  e.emp_id, e.emp_name, w.work_type, w.work_shift
+SELECT  e.emp_id, e.emp_name, e.emp_type, w.work_type, w.work_shift
 FROM    EMP e LEFT JOIN EMP_WORK_V w
 ON      e.emp_id = w.emp_id
 ;
